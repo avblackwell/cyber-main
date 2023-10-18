@@ -1,0 +1,19 @@
+Timesheet 
+- user enters a day from datepicker
+- calls api to get entries grouped by day for the entire week
+- user is navigated to day selected
+
+Expenses
+- Group expenses by week
+- Allow user to filter
+
+Time Reports
+- Prompted to enter timeframe, *customer(s), *project(s), *phase(s), *user(s) *default to all
+- generates report with following hierarchy 
+  -Timeframe                     
+  ---------------------------------------------------
+  total hours                    info entered in prompt describing report below
+  filters                        actions dropdown export dropdown
+  ---------------------------------------------------
+  table with data from report with bulk select and edit
+  

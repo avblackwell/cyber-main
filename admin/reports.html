@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html class="h-full" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.1/dist/cdn.min.js"></script>
+    <title>User Time</title>
+    <meta name="description" content="Test" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+  </head>
+  <body class="h-full">
+    <div class="min-h-full">
+      <nav class="bg-emerald-800">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex h-16 items-center justify-between">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <img
+                  class="h-8 w-auto"
+                  src="https://tailwindui.com/img/logos/mark.svg?color=emerald&shade=600"
+                  alt="Your Company"
+                />
+              </div>
+              <div class="hidden sm:ml-6 sm:block">
+                <div class="flex space-x-4">
+                  <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                  <a
+                    href="#"
+                    class="rounded-md bg-emerald-700 px-3 py-2 text-sm font-medium text-white"
+                    >Timesheet</a
+                  >
+
+                  <a
+                    href="#"
+                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-emerald-700 hover:text-white"
+                    >Expenses</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="hidden sm:ml-6 sm:block">
+              <div class="flex items-center">
+                <!-- Profile dropdown -->
+                <div class="relative ml-3">
+                  <div>
+                    <button
+                      type="button"
+                      class="relative flex rounded-full bg-emerald-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-emerald-800"
+                      id="user-menu-button"
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                    >
+                      <span class="absolute -inset-1.5"></span>
+                      <span class="sr-only">Open user menu</span>
+                      <span
+                        class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white"
+                      >
+                        <span class="font-medium leading-none text-gray-900">TW</span>
+                      </span>
+                    </button>
+                  </div>
+
+                  <!--
+                    Dropdown menu, show/hide based on menu state.
+      
+                    Entering: "transition ease-out duration-100"
+                      From: "transform opacity-0 scale-95"
+                      To: "transform opacity-100 scale-100"
+                    Leaving: "transition ease-in duration-75"
+                      From: "transform opacity-100 scale-100"
+                      To: "transform opacity-0 scale-95"
+                  -->
+                  <div
+                    class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="user-menu-button"
+                    tabindex="-1"
+                  >
+                    <!-- Active: "bg-gray-100", Not Active: "" -->
+                    <a
+                      href="#"
+                      class="block px-4 py-2 text-sm text-gray-700"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="user-menu-item-0"
+                      >Your Profile</a
+                    >
+                    <a
+                      href="#"
+                      class="block px-4 py-2 text-sm text-gray-700"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="user-menu-item-1"
+                      >Settings</a
+                    >
+                    <a
+                      href="#"
+                      class="block px-4 py-2 text-sm text-gray-700"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="user-menu-item-2"
+                      >Sign out</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="-mr-2 flex sm:hidden">
+              <!-- Mobile menu button -->
+              <button
+                type="button"
+                class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-emerald-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                aria-controls="mobile-menu"
+                aria-expanded="false"
+              >
+                <span class="absolute -inset-0.5"></span>
+                <span class="sr-only">Open main menu</span>
+                <!--
+                  Icon when menu is closed.
+      
+                  Menu open: "hidden", Menu closed: "block"
+                -->
+                <svg
+                  class="block h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+                <!--
+                  Icon when menu is open.
+      
+                  Menu open: "block", Menu closed: "hidden"
+                -->
+                <svg
+                  class="hidden h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="sm:hidden" id="mobile-menu">
+          <div class="space-y-1 px-2 pb-3 pt-2">
+            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            <a
+              href="#"
+              class="block rounded-md bg-emerald-700 px-3 py-2 text-base font-medium text-white"
+              >Timesheet</a
+            >
+
+            <a
+              href="#"
+              class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-emerald-700 hover:text-white"
+              >Expenses</a
+            >
+          </div>
+          <div class="border-t border-emerald-700 pb-3 pt-4">
+            <div class="flex items-center px-5">
+              <div class="flex-shrink-0">
+                <span
+                  class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white"
+                >
+                  <span class="font-medium leading-none text-gray-900">TW</span>
+                </span>
+              </div>
+              <div class="ml-3">
+                <div class="text-base font-medium text-white">First Last</div>
+                <div class="text-sm font-medium text-gray-300">firstlast@sgs.com</div>
+              </div>
+            </div>
+            <div class="mt-3 space-y-1 px-2">
+              <a
+                href="#"
+                class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-emerald-700 hover:text-white"
+                >Sign out</a
+              >
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="py-10">
+        <header>
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="md:flex md:items-center md:justify-between">
+              <div class="min-w-0 flex-1">
+                <h1
+                  class="text-3xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
+                >
+                  Timesheet
+                </h1>
+              </div>
+              <div class="mt-4 flex md:ml-4 md:mt-0 items-center">
+                <div>
+                  <select
+                    id="type"
+                    x-model="type"
+                    type="text"
+                    class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-emerald-600 sm:text-sm sm:leading-6"
+                  >
+                    >
+                    <option value="info">W31: September 18 - September 24</option>
+                    <option value="success">W30: September 18 - September 24</option>
+                    <option value="error">W29: September 18 - September 24</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+        <main class="py-10">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <!-- Your content -->
+            <div>
+              <div
+                x-data="tab"
+                x-id="['tab']"
+                class="relative w-full border-b border-gray-200 grid-cols-4 sm:grid-cols-8"
+              >
+                <!-- Tab List -->
+                <ul
+                  x-ref="tablist"
+                  @keydown.right.prevent.stop="$focus.wrap().next()"
+                  @keydown.home.prevent.stop="$focus.first()"
+                  @keydown.page-up.prevent.stop="$focus.first()"
+                  @keydown.left.prevent.stop="$focus.wrap().prev()"
+                  @keydown.end.prevent.stop="$focus.last()"
+                  @keydown.page-down.prevent.stop="$focus.last()"
+                  role="tablist"
+                  class="relative grid items-center justify-center w-full grid-cols-4 sm:grid-cols-8"
+                >
+                  <!-- Tab -->
+                  <li>
+                    <button
+                      :id="$id('tab', whichChild($el.parentElement, $refs.tablist))"
+                      @click="select($el.id)"
+                      @mousedown.prevent
+                      @focus="select($el.id)"
+                      type="button"
+                      :tabindex="isSelected($el.id) ? 0 : -1"
+                      :aria-selected="isSelected($el.id)"
+                      :class="isSelected($el.id) ? 'border-emerald-600 text-emerald-700' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                      class="w-full border-b-2 border-b-2 py-4 px-1 text-left text-sm font-medium"
+                      role="tab"
+                    >
+                      Mon<br />
+                      8:00
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      :id="$id('tab', whichChild($el.parentElement, $refs.tablist))"
+                      @click="select($el.id)"
+                      @mousedown.prevent
+                      @focus="select($el.id)"
+                      type="button"
+                      :tabindex="isSelected($el.id) ? 0 : -1"
+                      :aria-selected="isSelected($el.id)"
+                      :class="isSelected($el.id) ? 'border-emerald-600 text-emerald-700' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                      class="w-full border-b-2 py-4 px-1 text-left text-sm font-medium"
+                      role="tab"
+                    >
+                      Tue<br />
+                      8:00
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      :id="$id('tab', whichChild($el.parentElement, $refs.tablist))"
+                      @click="select($el.id)"
+                      @mousedown.prevent
+                      @focus="select($el.id)"
+                      type="button"
+                      :tabindex="isSelected($el.id) ? 0 : -1"
+                      :aria-selected="isSelected($el.id)"
+                      :class="isSelected($el.id) ? 'border-emerald-600 text-emerald-700' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                      class="w-full border-b-2 py-4 px-1 text-left text-sm font-medium"
+                      role="tab"
+                    >
+                      Wed<br />
+                      8:00
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      :id="$id('tab', whichChild($el.parentElement, $refs.tablist))"
+                      @click="select($el.id)"
+                      @mousedown.prevent
+                      @focus="select($el.id)"
+                      type="button"
+                      :tabindex="isSelected($el.id) ? 0 : -1"
+                      :aria-selected="isSelected($el.id)"
+                      :class="isSelected($el.id) ? 'border-emerald-600 text-emerald-700' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                      class="w-full border-b-2 py-4 px-1 text-left text-sm font-medium"
+                      role="tab"
+                    >
+                      Thur<br />
+                      8:00
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      :id="$id('tab', whichChild($el.parentElement, $refs.tablist))"
+                      @click="select($el.id)"
+                      @mousedown.prevent
+                      @focus="select($el.id)"
+                      type="button"
+                      :tabindex="isSelected($el.id) ? 0 : -1"
+                      :aria-selected="isSelected($el.id)"
+                      :class="isSelected($el.id) ? 'border-emerald-600 text-emerald-700' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                      class="w-full border-b-2 py-4 px-1 text-left text-sm font-medium"
+                      role="tab"
+                    >
+                      Fri<br />
+                      8:00
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      :id="$id('tab', whichChild($el.parentElement, $refs.tablist))"
+                      @click="select($el.id)"
+                      @mousedown.prevent
+                      @focus="select($el.id)"
+                      type="button"
+                      :tabindex="isSelected($el.id) ? 0 : -1"
+                      :aria-selected="isSelected($el.id)"
+                      :class="isSelected($el.id) ? 'border-emerald-600 text-emerald-700' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                      class="w-full border-b-2 py-4 px-1 text-left text-sm font-medium"
+                      role="tab"
+                    >
+                      Sat<br />
+                      0:00
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      :id="$id('tab', whichChild($el.parentElement, $refs.tablist))"
+                      @click="select($el.id)"
+                      @mousedown.prevent
+                      @focus="select($el.id)"
+                      type="button"
+                      :tabindex="isSelected($el.id) ? 0 : -1"
+                      :aria-selected="isSelected($el.id)"
+                      :class="isSelected($el.id) ? 'border-emerald-600 text-emerald-700' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'"
+                      class="w-full border-b-2 py-4 px-1 text-left text-sm font-medium"
+                      role="tab"
+                    >
+                      Sun<br />
+                      0:00
+                    </button>
+                  </li>
+                  <li>
+                    <div
+                      class="border-transparent text-gray-900 w-full border-b-2 py-4 px-1 text-right text-sm font-semibold"
+                    >
+                      Total<br />
+                      40:00
+                    </div>
+                  </li>
+                </ul>
+
+                <!-- Panels -->
+                <div role="tabpanels" class="border-t border-gray-200 bg-white">
+                  <!-- Panel -->
+                  <!--Time entry list template-->
+
+                  <section
+                    x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
+                    :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
+                    role="tabpanel"
+                  >
+                    <ul role="list" class="divide-y divide-gray-200">
+                      <li class="flex items-center justify-between gap-x-6 py-5">
+                        <div class="min-w-0">
+                          <div class="flex items-start gap-x-3">
+                            <p class="text-sm font-semibold leading-6 text-gray-900">
+                              Project 2 / Phase 2
+                            </p>
+                            <p
+                              class="rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset text-red-700 bg-red-50 ring-red-600/20"
+                            >
+                              $
+                            </p>
+                          </div>
+                          <div
+                            class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500 max-w-prose"
+                          >
+                            <p class="line-clamp-1">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                              eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
+                              ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                              tempor incididunt ut labore et dolore magna aliqua.
+                            </p>
+                          </div>
+                        </div>
+                        <div class="flex flex-none items-center gap-x-2">
+                          <p class="text-sm font-semibold leading-6 text-gray-900">2:00</p>
+
+                          <div class="relative flex-none">
+                            <div
+                              x-data="dropdown"
+                              x-on:keydown.escape.prevent.stop="close($refs.button)"
+                              x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                              x-id="['dropdown-button']"
+                              class="relative"
+                            >
+                              <!-- Button -->
+                              <button
+                                x-ref="button"
+                                x-on:click="toggle()"
+                                :aria-expanded="open"
+                                :aria-controls="$id('dropdown-button')"
+                                type="button"
+                                class="px-2.5 py-2.5"
+                              >
+                                <span class="sr-only">Open options</span>
+                                <svg
+                                  class="h-5 w-5"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"
+                                  />
+                                </svg>
+                              </button>
+
+                              <!-- Panel -->
+                              <div
+                                x-ref="panel"
+                                x-show="open"
+                                x-transition.origin.top.left
+                                x-on:click.outside="close($refs.button)"
+                                :id="$id('dropdown-button')"
+                                style="display: none"
+                                class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
+                              >
+                                <div x-data="{ open: false }">
+                                  <!-- Trigger -->
+                                  <span x-on:click="open = true">
+                                    <button
+                                      type="button"
+                                      class="lex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-50 disabled:text-gray-500"
+                                    >
+                                      Edit Time
+                                    </button>
+                                  </span>
+
+                                  <!-- Modal -->
+                                  <div
+                                    x-show="open"
+                                    style="display: none"
+                                    x-on:keydown.escape.prevent.stop="open = false"
+                                    role="dialog"
+                                    aria-modal="true"
+                                    x-id="['modal-title']"
+                                    :aria-labelledby="$id('modal-title')"
+                                    class="fixed inset-0 z-10 overflow-y-auto"
+                                  >
+                                    <!-- Overlay -->
+                                    <div
+                                      x-show="open"
+                                      x-transition.opacity
+                                      class="fixed inset-0 bg-black bg-opacity-50"
+                                    ></div>
+
+                                    <!-- Panel -->
+                                    <div
+                                      x-show="open"
+                                      x-transition
+                                      x-on:click="open = false"
+                                      class="relative flex min-h-screen items-center justify-center p-4"
+                                    >
+                                      <div
+                                        x-on:click.stop
+                                        x-trap.noscroll.inert="open"
+                                        class="relative w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-12 shadow-lg"
+                                      >
+                                        <form>
+                                          <div class="space-y-12">
+                                            <div class="">
+                                              <h2
+                                                class="text-base font-semibold leading-7 text-gray-900"
+                                              >
+                                                Edit time for entry
+                                              </h2>
+                                              <div
+                                                class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
+                                              >
+                                                <div class="col-span-full">
+                                                  <label
+                                                    for="about"
+                                                    class="block text-sm font-medium leading-6 text-gray-900"
+                                                    >Notes</label
+                                                  >
+                                                  <div class="mt-2">
+                                                    <textarea
+                                                      id="about"
+                                                      name="about"
+                                                      rows="3"
+                                                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6"
+                                                    ></textarea>
+                                                  </div>
+                                                  <p class="mt-3 text-sm leading-6 text-gray-600">
+                                                    Write a few sentences describing what you
+                                                    accomplished.
+                                                  </p>
+                                                </div>
+                                                <div class="sm:col-span-3">
+                                                  <label
+                                                    for="project"
+                                                    class="block text-sm font-medium leading-6 text-gray-900"
+                                                    >Project</label
+                                                  >
+                                                  <div class="mt-2">
+                                                    <select
+                                                      id="project"
+                                                      name="project"
+                                                      autocomplete="project-name"
+                                                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                    >
+                                                      <option>Project 1</option>
+                                                      <option>Project 2</option>
+                                                      <option>Project 3</option>
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="sm:col-span-3">
+                                                  <label
+                                                    for="phase"
+                                                    class="block text-sm font-medium leading-6 text-gray-900"
+                                                    >Phase</label
+                                                  >
+                                                  <div class="mt-2">
+                                                    <select
+                                                      id="phase"
+                                                      name="phase"
+                                                      autocomplete="phase-name"
+                                                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                    >
+                                                      <option>Phase 1</option>
+                                                      <option>Phase 2</option>
+                                                      <option>Phase 3</option>
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="sm:col-span-3">
+                                                  <label
+                                                    for="country"
+                                                    class="block text-sm font-medium leading-6 text-gray-900"
+                                                    >Billable</label
+                                                  >
+                                                  <div class="mt-2">
+                                                    <select
+                                                      id="country"
+                                                      name="country"
+                                                      autocomplete="country-name"
+                                                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                    >
+                                                      <option>Yes</option>
+                                                      <option>No</option>
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="sm:col-span-3">
+                                                  <label
+                                                    for="country"
+                                                    class="block text-sm font-medium leading-6 text-gray-900"
+                                                    >Hours</label
+                                                  >
+                                                  <div class="mt-2">
+                                                    <input
+                                                      type="number"
+                                                      name="hours"
+                                                      id="email"
+                                                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    />
+                                                  </div>
+                                                </div>
+                                                <div class="col-span-full">
+                                                  <fieldset>
+                                                    <legend
+                                                      class="text-sm font-semibold leading-6 text-gray-900"
+                                                    >
+                                                      Days
+                                                    </legend>
+                                                    <div
+                                                      class="mt-6 grid grid-rows-4 grid-flow-col gap-4"
+                                                    >
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Monday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Tuesday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Wednesday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Thursday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Friday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Saturday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Sunday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </fieldset>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <!--Add Time Modal Buttons-->
+                                          <div class="mt-6 flex items-center justify-end gap-x-6">
+                                            <button
+                                              type="button"
+                                              x-on:click="open = false"
+                                              class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                            >
+                                              Cancel
+                                            </button>
+                                            <button
+                                              x-on:click="open = false"
+                                              type="submit"
+                                              class="rounded-md bg-emerald-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+                                            >
+                                              Add time
+                                            </button>
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div x-data="{ open: false }">
+                                  <!-- Trigger -->
+                                  <span x-on:click="open = true">
+                                    <button
+                                      type="button"
+                                      class="flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-50 disabled:text-gray-500"
+                                    >
+                                      <span class="text-red-600">Delete Time</span>
+                                    </button>
+                                  </span>
+
+                                  <!-- Modal -->
+                                  <div
+                                    x-show="open"
+                                    style="display: none"
+                                    x-on:keydown.escape.prevent.stop="open = false"
+                                    role="dialog"
+                                    aria-modal="true"
+                                    x-id="['modal-title']"
+                                    :aria-labelledby="$id('modal-title')"
+                                    class="fixed inset-0 z-10 overflow-y-auto"
+                                  >
+                                    <!-- Overlay -->
+                                    <div
+                                      x-show="open"
+                                      x-transition.opacity
+                                      class="fixed inset-0 bg-black bg-opacity-50"
+                                    ></div>
+
+                                    <!-- Panel -->
+                                    <div
+                                      x-show="open"
+                                      x-transition
+                                      x-on:click="open = false"
+                                      class="relative flex min-h-screen items-center justify-center p-4"
+                                    >
+                                      <div
+                                        x-on:click.stop
+                                        x-trap.noscroll.inert="open"
+                                        class="relative w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-12 shadow-lg"
+                                      >
+                                        <!-- Title -->
+                                        <h2 class="text-3xl font-bold" :id="$id('modal-title')">
+                                          Confirm
+                                        </h2>
+
+                                        <!-- Buttons -->
+                                        <div class="mt-8 flex space-x-2">
+                                          <button
+                                            type="button"
+                                            x-on:click="open = false"
+                                            class="rounded-md border border-gray-200 bg-white px-5 py-2.5"
+                                          >
+                                            Delete
+                                          </button>
+
+                                          <button
+                                            type="button"
+                                            x-on:click="open = false"
+                                            class="rounded-md border border-gray-200 bg-white px-5 py-2.5"
+                                          >
+                                            Cancel
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li class="flex items-center justify-between gap-x-6 py-5">
+                        <div class="min-w-0">
+                          <div class="flex items-start gap-x-3">
+                            <p class="text-sm font-semibold leading-6 text-gray-900">
+                              Project 2 / Phase 2
+                            </p>
+                            <p
+                              class="rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset text-red-700 bg-red-50 ring-red-600/20"
+                            >
+                              $
+                            </p>
+                          </div>
+                          <div
+                            class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500 max-w-prose"
+                          >
+                            <p class="line-clamp-1">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                              eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
+                              ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                              tempor incididunt ut labore et dolore magna aliqua.
+                            </p>
+                          </div>
+                        </div>
+                        <div class="flex flex-none items-center gap-x-2">
+                          <p class="text-sm font-semibold leading-6 text-gray-900">2:00</p>
+
+                          <div class="relative flex-none">
+                            <div
+                              x-data="dropdown"
+                              x-on:keydown.escape.prevent.stop="close($refs.button)"
+                              x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                              x-id="['dropdown-button']"
+                              class="relative"
+                            >
+                              <!-- Button -->
+                              <button
+                                x-ref="button"
+                                x-on:click="toggle()"
+                                :aria-expanded="open"
+                                :aria-controls="$id('dropdown-button')"
+                                type="button"
+                                class="px-2.5 py-2.5"
+                              >
+                                <span class="sr-only">Open options</span>
+                                <svg
+                                  class="h-5 w-5"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"
+                                  />
+                                </svg>
+                              </button>
+
+                              <!-- Panel -->
+                              <div
+                                x-ref="panel"
+                                x-show="open"
+                                x-transition.origin.top.left
+                                x-on:click.outside="close($refs.button)"
+                                :id="$id('dropdown-button')"
+                                style="display: none"
+                                class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
+                              >
+                                <div x-data="{ open: false }">
+                                  <!-- Trigger -->
+                                  <span x-on:click="open = true">
+                                    <button
+                                      type="button"
+                                      class="lex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-50 disabled:text-gray-500"
+                                    >
+                                      Edit Time
+                                    </button>
+                                  </span>
+
+                                  <!-- Modal -->
+                                  <div
+                                    x-show="open"
+                                    style="display: none"
+                                    x-on:keydown.escape.prevent.stop="open = false"
+                                    role="dialog"
+                                    aria-modal="true"
+                                    x-id="['modal-title']"
+                                    :aria-labelledby="$id('modal-title')"
+                                    class="fixed inset-0 z-10 overflow-y-auto"
+                                  >
+                                    <!-- Overlay -->
+                                    <div
+                                      x-show="open"
+                                      x-transition.opacity
+                                      class="fixed inset-0 bg-black bg-opacity-50"
+                                    ></div>
+
+                                    <!-- Panel -->
+                                    <div
+                                      x-show="open"
+                                      x-transition
+                                      x-on:click="open = false"
+                                      class="relative flex min-h-screen items-center justify-center p-4"
+                                    >
+                                      <div
+                                        x-on:click.stop
+                                        x-trap.noscroll.inert="open"
+                                        class="relative w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-12 shadow-lg"
+                                      >
+                                        <form>
+                                          <div class="space-y-12">
+                                            <div class="">
+                                              <h2
+                                                class="text-base font-semibold leading-7 text-gray-900"
+                                              >
+                                                Edit time for entry
+                                              </h2>
+                                              <div
+                                                class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
+                                              >
+                                                <div class="col-span-full">
+                                                  <label
+                                                    for="about"
+                                                    class="block text-sm font-medium leading-6 text-gray-900"
+                                                    >Notes</label
+                                                  >
+                                                  <div class="mt-2">
+                                                    <textarea
+                                                      id="about"
+                                                      name="about"
+                                                      rows="3"
+                                                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6"
+                                                    ></textarea>
+                                                  </div>
+                                                  <p class="mt-3 text-sm leading-6 text-gray-600">
+                                                    Write a few sentences describing what you
+                                                    accomplished.
+                                                  </p>
+                                                </div>
+                                                <div class="sm:col-span-3">
+                                                  <label
+                                                    for="country"
+                                                    class="block text-sm font-medium leading-6 text-gray-900"
+                                                    >Project</label
+                                                  >
+                                                  <div class="mt-2">
+                                                    <select
+                                                      id="country"
+                                                      name="country"
+                                                      autocomplete="country-name"
+                                                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                    >
+                                                      <option>Project 1</option>
+                                                      <option>Project 2</option>
+                                                      <option>Project 3</option>
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="sm:col-span-3">
+                                                  <label
+                                                    for="country"
+                                                    class="block text-sm font-medium leading-6 text-gray-900"
+                                                    >Phase</label
+                                                  >
+                                                  <div class="mt-2">
+                                                    <select
+                                                      id="country"
+                                                      name="country"
+                                                      autocomplete="country-name"
+                                                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                    >
+                                                      <option>Phase 1</option>
+                                                      <option>Phase 2</option>
+                                                      <option>Phase 3</option>
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="sm:col-span-3">
+                                                  <label
+                                                    for="country"
+                                                    class="block text-sm font-medium leading-6 text-gray-900"
+                                                    >Billable</label
+                                                  >
+                                                  <div class="mt-2">
+                                                    <select
+                                                      id="country"
+                                                      name="country"
+                                                      autocomplete="country-name"
+                                                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                    >
+                                                      <option>Yes</option>
+                                                      <option>No</option>
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="sm:col-span-3">
+                                                  <label
+                                                    for="country"
+                                                    class="block text-sm font-medium leading-6 text-gray-900"
+                                                    >Hours</label
+                                                  >
+                                                  <div class="mt-2">
+                                                    <input
+                                                      type="number"
+                                                      name="hours"
+                                                      id="email"
+                                                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    />
+                                                  </div>
+                                                </div>
+                                                <div class="col-span-full">
+                                                  <fieldset>
+                                                    <legend
+                                                      class="text-sm font-semibold leading-6 text-gray-900"
+                                                    >
+                                                      Days
+                                                    </legend>
+                                                    <div
+                                                      class="mt-6 grid grid-rows-4 grid-flow-col gap-4"
+                                                    >
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Monday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Tuesday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Wednesday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Thursday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Friday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Saturday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                      <div class="relative flex gap-x-3">
+                                                        <div class="flex h-6 items-center">
+                                                          <input
+                                                            id="comments"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                                          />
+                                                        </div>
+                                                        <div class="text-sm leading-6">
+                                                          <label
+                                                            for="comments"
+                                                            class="font-medium text-gray-900"
+                                                            >Sunday, Sept 18</label
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </fieldset>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <!--Add Time Modal Buttons-->
+                                          <div class="mt-6 flex items-center justify-end gap-x-6">
+                                            <button
+                                              type="button"
+                                              x-on:click="open = false"
+                                              class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                            >
+                                              Cancel
+                                            </button>
+                                            <button
+                                              x-on:click="open = false"
+                                              type="submit"
+                                              class="rounded-md bg-emerald-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+                                            >
+                                              Add time
+                                            </button>
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div x-data="{ open: false }">
+                                  <!-- Trigger -->
+                                  <span x-on:click="open = true">
+                                    <button
+                                      type="button"
+                                      class="flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-50 disabled:text-gray-500"
+                                    >
+                                      <span class="text-red-600">Delete Time</span>
+                                    </button>
+                                  </span>
+
+                                  <!-- Modal -->
+                                  <div
+                                    x-show="open"
+                                    style="display: none"
+                                    x-on:keydown.escape.prevent.stop="open = false"
+                                    role="dialog"
+                                    aria-modal="true"
+                                    x-id="['modal-title']"
+                                    :aria-labelledby="$id('modal-title')"
+                                    class="fixed inset-0 z-10 overflow-y-auto"
+                                  >
+                                    <!-- Overlay -->
+                                    <div
+                                      x-show="open"
+                                      x-transition.opacity
+                                      class="fixed inset-0 bg-black bg-opacity-50"
+                                    ></div>
+
+                                    <!-- Panel -->
+                                    <div
+                                      x-show="open"
+                                      x-transition
+                                      x-on:click="open = false"
+                                      class="relative flex min-h-screen items-center justify-center p-4"
+                                    >
+                                      <div
+                                        x-on:click.stop
+                                        x-trap.noscroll.inert="open"
+                                        class="relative w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-12 shadow-lg"
+                                      >
+                                        <!-- Title -->
+                                        <h2 class="text-3xl font-bold" :id="$id('modal-title')">
+                                          Confirm
+                                        </h2>
+
+                                        <!-- Buttons -->
+                                        <div class="mt-8 flex space-x-2">
+                                          <button
+                                            type="button"
+                                            x-on:click="open = false"
+                                            class="rounded-md border border-gray-200 bg-white px-5 py-2.5"
+                                          >
+                                            Delete
+                                          </button>
+
+                                          <button
+                                            type="button"
+                                            x-on:click="open = false"
+                                            class="rounded-md border border-gray-200 bg-white px-5 py-2.5"
+                                          >
+                                            Cancel
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </section>
+                  <!-- Time-empty template for use in timesheet -->
+                  <section
+                    x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
+                    :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
+                    role="tabpanel"
+                  >
+                    <div class="text-center py-10">
+                      <h3 class="mt-2 text-sm font-semibold text-gray-900">No time entries</h3>
+                      <p class="mt-1 text-sm text-gray-500">Get started by adding time.</p>
+                    </div>
+                  </section>
+                  <section
+                    x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
+                    :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
+                    role="tabpanel"
+                  >
+                    <div class="text-center py-10">
+                      <h3 class="mt-2 text-sm font-semibold text-gray-900">No time entries</h3>
+                      <p class="mt-1 text-sm text-gray-500">Get started by adding time.</p>
+                    </div>
+                  </section>
+                  <section
+                    x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
+                    :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
+                    role="tabpanel"
+                  >
+                    <div class="text-center py-10">
+                      <h3 class="mt-2 text-sm font-semibold text-gray-900">No time entries</h3>
+                      <p class="mt-1 text-sm text-gray-500">Get started by adding time.</p>
+                    </div>
+                  </section>
+                  <section
+                    x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
+                    :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
+                    role="tabpanel"
+                  >
+                    <div class="text-center py-10">
+                      <h3 class="mt-2 text-sm font-semibold text-gray-900">No time entries</h3>
+                      <p class="mt-1 text-sm text-gray-500">Get started by adding time.</p>
+                    </div>
+                  </section>
+                  <section
+                    x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
+                    :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
+                    role="tabpanel"
+                  >
+                    <div class="text-center py-10">
+                      <h3 class="mt-2 text-sm font-semibold text-gray-900">No time entries</h3>
+                      <p class="mt-1 text-sm text-gray-500">Get started by adding time.</p>
+                    </div>
+                  </section>
+                  <section
+                    x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
+                    :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
+                    role="tabpanel"
+                  >
+                    <div class="text-center py-10">
+                      <h3 class="mt-2 text-sm font-semibold text-gray-900">No time entries</h3>
+                      <p class="mt-1 text-sm text-gray-500">Get started by adding time.</p>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Button group-->
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mt-4 flex md:ml-4 justify-end">
+              <!--Add time modal-->
+              <div x-data="{ open: false }" class="flex justify-center">
+                <!-- Trigger -->
+                <span x-on:click="open = true">
+                  <button
+                    type="button"
+                    class="ml-3 inline-flex items-center rounded-md bg-emerald-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+                  >
+                    Add time
+                  </button>
+                </span>
+
+                <!-- Modal -->
+                <div
+                  x-show="open"
+                  style="display: none"
+                  x-on:keydown.escape.prevent.stop="open = false"
+                  role="dialog"
+                  aria-modal="true"
+                  x-id="['modal-title']"
+                  :aria-labelledby="$id('modal-title')"
+                  class="fixed inset-0 z-10 overflow-y-auto"
+                >
+                  <!-- Overlay -->
+                  <div
+                    x-show="open"
+                    x-transition.opacity
+                    class="fixed inset-0 bg-black bg-opacity-50"
+                  ></div>
+
+                  <!-- Panel -->
+                  <div
+                    x-show="open"
+                    x-transition
+                    x-on:click="open = false"
+                    class="relative flex min-h-screen items-center justify-center p-4"
+                  >
+                    <div
+                      x-on:click.stop
+                      x-trap.noscroll.inert="open"
+                      class="relative w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-12 shadow-lg"
+                    >
+                      <form>
+                        <div class="space-y-12">
+                          <div class="">
+                            <h2 class="text-base font-semibold leading-7 text-gray-900">
+                              Add time for Week 31: September 18 - September 24
+                            </h2>
+                            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                              <div class="col-span-full">
+                                <label
+                                  for="notes"
+                                  class="block text-sm font-medium leading-6 text-gray-900"
+                                  >Notes</label
+                                >
+                                <div class="mt-2">
+                                  <textarea
+                                    id="notes"
+                                    name="notes"
+                                    rows="3"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6"
+                                  ></textarea>
+                                </div>
+                                <p class="mt-3 text-sm leading-6 text-gray-600">
+                                  Write a few sentences describing what you accomplished.
+                                </p>
+                              </div>
+                              <div class="sm:col-span-3">
+                                <label
+                                  for="project"
+                                  class="block text-sm font-medium leading-6 text-gray-900"
+                                  >Project</label
+                                >
+                                <div class="mt-2">
+                                  <select
+                                    id="project"
+                                    name="project"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                  >
+                                    <option>Project 1</option>
+                                    <option>Project 2</option>
+                                    <option>Project 3</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="sm:col-span-3">
+                                <label
+                                  for="phase"
+                                  class="block text-sm font-medium leading-6 text-gray-900"
+                                  >Phase</label
+                                >
+                                <div class="mt-2">
+                                  <select
+                                    id="phase"
+                                    name="phase"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                  >
+                                    <option>Phase 1</option>
+                                    <option>Phase 2</option>
+                                    <option>Phase 3</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="sm:col-span-3">
+                                <label
+                                  for="billable"
+                                  class="block text-sm font-medium leading-6 text-gray-900"
+                                  >Billable</label
+                                >
+                                <div class="mt-2">
+                                  <select
+                                    id="billable"
+                                    name="billable"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                  >
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="sm:col-span-3">
+                                <label
+                                  for="hours"
+                                  class="block text-sm font-medium leading-6 text-gray-900"
+                                  >Hours</label
+                                >
+                                <div class="mt-2">
+                                  <input
+                                    type="number"
+                                    name="hours"
+                                    id="hours"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    placeholder="0"
+                                  />
+                                </div>
+                              </div>
+                              <div class="col-span-full">
+                                <fieldset>
+                                  <legend class="text-sm font-semibold leading-6 text-gray-900">
+                                    Days
+                                  </legend>
+                                  <div class="mt-6 grid grid-rows-4 grid-flow-col gap-4">
+                                    <div class="relative flex gap-x-3">
+                                      <div class="flex h-6 items-center">
+                                        <input
+                                          id="days"
+                                          name="days"
+                                          type="checkbox"
+                                          class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                        />
+                                      </div>
+                                      <div class="text-sm leading-6">
+                                        <label for="comments" class="font-medium text-gray-900"
+                                          >Monday, Sept 18</label
+                                        >
+                                      </div>
+                                    </div>
+                                    <div class="relative flex gap-x-3">
+                                      <div class="flex h-6 items-center">
+                                        <input
+                                          id="comments"
+                                          name="comments"
+                                          type="checkbox"
+                                          class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                        />
+                                      </div>
+                                      <div class="text-sm leading-6">
+                                        <label for="comments" class="font-medium text-gray-900"
+                                          >Tuesday, Sept 18</label
+                                        >
+                                      </div>
+                                    </div>
+                                    <div class="relative flex gap-x-3">
+                                      <div class="flex h-6 items-center">
+                                        <input
+                                          id="comments"
+                                          name="comments"
+                                          type="checkbox"
+                                          class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                        />
+                                      </div>
+                                      <div class="text-sm leading-6">
+                                        <label for="comments" class="font-medium text-gray-900"
+                                          >Wednesday, Sept 18</label
+                                        >
+                                      </div>
+                                    </div>
+                                    <div class="relative flex gap-x-3">
+                                      <div class="flex h-6 items-center">
+                                        <input
+                                          id="comments"
+                                          name="comments"
+                                          type="checkbox"
+                                          class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                        />
+                                      </div>
+                                      <div class="text-sm leading-6">
+                                        <label for="comments" class="font-medium text-gray-900"
+                                          >Thursday, Sept 18</label
+                                        >
+                                      </div>
+                                    </div>
+                                    <div class="relative flex gap-x-3">
+                                      <div class="flex h-6 items-center">
+                                        <input
+                                          id="comments"
+                                          name="comments"
+                                          type="checkbox"
+                                          class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                        />
+                                      </div>
+                                      <div class="text-sm leading-6">
+                                        <label for="comments" class="font-medium text-gray-900"
+                                          >Friday, Sept 18</label
+                                        >
+                                      </div>
+                                    </div>
+                                    <div class="relative flex gap-x-3">
+                                      <div class="flex h-6 items-center">
+                                        <input
+                                          id="comments"
+                                          name="comments"
+                                          type="checkbox"
+                                          class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                        />
+                                      </div>
+                                      <div class="text-sm leading-6">
+                                        <label for="comments" class="font-medium text-gray-900"
+                                          >Saturday, Sept 18</label
+                                        >
+                                      </div>
+                                    </div>
+                                    <div class="relative flex gap-x-3">
+                                      <div class="flex h-6 items-center">
+                                        <input
+                                          id="comments"
+                                          name="comments"
+                                          type="checkbox"
+                                          class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600"
+                                        />
+                                      </div>
+                                      <div class="text-sm leading-6">
+                                        <label for="comments" class="font-medium text-gray-900"
+                                          >Sunday, Sept 18</label
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                </fieldset>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Add Time Modal Buttons-->
+                        <div class="mt-6 flex items-center justify-end gap-x-6">
+                          <button
+                            type="button"
+                            x-on:click="open = false"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            x-on:click="open = false"
+                            type="submit"
+                            class="rounded-md bg-emerald-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+                          >
+                            Add time
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script type="text/javascript" src="/script.js"></script>
+  </body>
+</html>
